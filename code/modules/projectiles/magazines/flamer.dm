@@ -19,6 +19,16 @@
 
 	var/dispenser_type = /obj/structure/reagent_dispensers/fueltank
 
+/obj/item/ammo_magazine/flamer_tank/spray_flamer
+	name = "sprayflamer tank"
+	desc = "A sprayflamer tank"
+	reload_delay = 0 SECONDS
+	w_class = WEIGHT_CLASS_SMALL
+	current_rounds = 9999
+	max_rounds = 9999
+	icon_state_mini = "tank_light"
+	default_ammo = /datum/ammo/flamethrower/spray_flame
+
 /obj/item/ammo_magazine/flamer_tank/mini
 	name = "mini incinerator tank"
 	desc = "A fuel tank of usually ultra thick napthal, a sticky combustable liquid chemical, for use in the underail incinerator unit. Handle with care."

@@ -167,6 +167,54 @@
 	ammo_behavior_flags = AMMO_TARGET_TURF
 	bullet_color = null
 
+/datum/ammo/flamethrower/spray_flame
+	name = "spray flames"
+	icon_state = "fire_puff"
+	ping = NONE
+	ammo_behavior_flags = AMMO_INCENDIARY|AMMO_FLAME|AMMO_SPECIAL_PROCESS|AMMO_PASS_THROUGH_MOB|AMMO_TARGET_TURF
+	max_range = 7
+	shell_speed = 0.4
+	damage = 6
+	burntime = 0.3 SECONDS
+	bonus_projectiles_type = /datum/ammo/flamethrower/spray_flame_bounce
+	bonus_projectiles_amount = 1
+	bonus_projectiles_scatter = 2
+	accuracy_var_low = 9
+	accuracy_var_high = 9
+	accurate_range = 3
+	damage = 6
+	damage_falloff = 4
+	projectile_alpha = 0
+	initial_size = 0.5
+
+/datum/ammo/flamethrower/spray_flame_bounce
+	name = "spray flames"
+	icon_state = "fire_puff"
+	ammo_behavior_flags = AMMO_INCENDIARY|AMMO_FLAME|AMMO_PASS_THROUGH_MOB
+	ping = NONE
+	max_range = 2
+	shell_speed = 0.05
+	damage = 6
+	burntime = 0.3 SECONDS
+	projectile_alpha = 128
+	initial_size = 1.5
+
+/datum/ammo/flamethrower/spray_flame/on_hit_turf(turf/target_turf, obj/projectile/proj)
+	drop_flame(get_turf(target_turf))
+	reflect(target_turf, proj, 180, 2, 0.1)
+
+/datum/ammo/flamethrower/spray_flame/on_hit_mob(mob/target_mob, obj/projectile/proj)
+	drop_flame(get_turf(target_mob))
+	reflect(get_turf(target_mob), proj, 180, 2, 0.1)
+
+/datum/ammo/flamethrower/spray_flame/on_hit_obj(obj/target_obj, obj/projectile/proj)
+	drop_flame(get_turf(target_obj))
+	reflect(get_turf(target_obj), proj, 180, 2, 0.1)
+
+/datum/ammo/flamethrower/spray_flame/ammo_process(obj/projectile/proj, damage)
+	proj.transform *= 1.15
+
+
 /datum/ammo/water/proc/splash(turf/extinguished_turf, splash_direction)
 	for(var/atom/relevant_atom AS in extinguished_turf)
 		if(isfire(relevant_atom))

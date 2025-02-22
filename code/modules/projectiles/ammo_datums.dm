@@ -92,6 +92,11 @@ GLOBAL_LIST_INIT(no_sticky_resin, typecacheof(list(/obj/item/clothing/mask/faceh
 	var/fire_burst_damage = 10
 	///Base fire stacks added on hit if the projectile has AMMO_INCENDIARY
 	var/incendiary_strength = 10
+	// the projectile's alpha value on creation
+	var/projectile_alpha = 255
+
+	// what to multiply the sprite's size by
+	var/initial_size = 1
 
 /datum/ammo/proc/do_at_max_range(turf/target_turf, obj/projectile/proj)
 	return
@@ -303,12 +308,19 @@ GLOBAL_LIST_INIT(no_sticky_resin, typecacheof(list(/obj/item/clothing/mask/faceh
 	CRASH("ammo_process called with unimplemented process!")
 
 ///bounces the projectile by creating a new projectile and calculating an angle of reflection
-/datum/ammo/proc/reflect(turf/T, obj/projectile/proj, scatter_variance)
+/datum/ammo/proc/reflect(turf/T, obj/projectile/proj, scatter_variance, range_after = -1, new_speed = -1)
+
+	var/proj_speed = new_speed
+	if (proj_speed == -1)
+		proj_speed = proj.projectile_speed
+
 	if(!bonus_projectiles_type) //while fire_bonus_projectiles does not require this var, it can cause infinite recursion in some cases, leading to death tiles
 		return
-	var/new_range = proj.proj_max_range - proj.distance_travelled
-	if(new_range <= 0)
-		return
+	var/new_range = range_after
+	if (range_after == -1)
+		new_range = proj.proj_max_range - proj.distance_travelled
+		if(new_range <= 0)
+			return
 
 	var/dir_to_proj = get_dir(T, proj)
 	if(ISDIAGONALDIR(dir_to_proj))
@@ -330,7 +342,7 @@ GLOBAL_LIST_INIT(no_sticky_resin, typecacheof(list(/obj/item/clothing/mask/faceh
 		new_angle -= 360
 
 	bonus_projectiles_amount = 1
-	fire_bonus_projectiles(proj, null, proj.shot_from, new_range, proj.projectile_speed, new_angle, null, get_step(T, dir_to_proj))
+	fire_bonus_projectiles(proj, null, proj.shot_from, new_range, proj_speed, new_angle, null, get_step(T, dir_to_proj))
 	bonus_projectiles_amount = initial(bonus_projectiles_amount)
 
 /*

@@ -22,6 +22,49 @@
 	damage_falloff_mult = 0.5
 	akimbo_scatter_mod = 8
 
+
+// SPRAYFLAMER
+// ------------------------------------------------------------
+/obj/item/weapon/gun/rifle/sprayflamer
+	name = "\improper Sprayflamer"
+	desc = "A sprayflamer."
+	icon_state = "m240"
+	worn_icon_state = "m240"
+	icon = 'icons/obj/items/guns/special.dmi'
+	worn_icon_list = list(
+		slot_l_hand_str = 'icons/mob/inhands/guns/special_left_1.dmi',
+		slot_r_hand_str = 'icons/mob/inhands/guns/special_right_1.dmi',
+	)
+	fire_sound = SFX_GUN_FLAMETHROWER
+	dry_fire_sound = 'sound/weapons/guns/fire/flamethrower_empty.ogg'
+	caliber = CALIBER_16G //codex
+	max_shells = 12 //codex
+	force = 20
+	ammo_datum_type = /datum/ammo/flamethrower/spray_flame
+	default_ammo_type = /obj/item/ammo_magazine/flamer_tank/spray_flamer
+	allowed_ammo_types = list(
+		/obj/item/ammo_magazine/flamer_tank,
+		/obj/item/ammo_magazine/flamer_tank/large,
+		/obj/item/ammo_magazine/flamer_tank/spray_flamer,
+		/obj/item/ammo_magazine/flamer_tank/large/X,
+		/obj/item/ammo_magazine/flamer_tank/backtank,
+		/obj/item/ammo_magazine/flamer_tank/backtank/X,
+	)
+	attachable_allowed = list(
+	)
+
+	gun_features_flags = GUN_CAN_POINTBLANK|GUN_AMMO_COUNTER|GUN_WIELDED_FIRING_ONLY //Its a shotgun type weapon effectively, most shotgun type weapons shouldn't be able to point blank 1 handed.
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
+	starting_attachment_types = list()
+	attachable_offset = list("muzzle_x" = 30, "muzzle_y" = 16,"rail_x" = 12, "rail_y" = 17, "under_x" = 20, "under_y" = 13, "stock_x" = 26, "stock_y" = 13)
+	gun_skill_category = SKILL_SHOTGUNS
+
+	fire_delay = 0.05 SECONDS
+	accuracy_mult = 1.15
+	scatter = 10
+	movement_acc_penalty_mult = 3
+
+
 //-------------------------------------------------------
 //AR-18 Carbine
 

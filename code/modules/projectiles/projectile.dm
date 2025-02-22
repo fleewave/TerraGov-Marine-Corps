@@ -119,6 +119,12 @@
 	/// List of atoms already hit by that projectile. Will only matter for projectiles capable of passing through multiple atoms
 	var/list/atom/hit_atoms = list()
 
+	// the alpha of the projectile, default 100%
+	var/proj_alpha = 255
+
+	// projectile's initial sprite size, default 1
+	var/proj_size = 1
+
 /obj/projectile/Initialize(mapload)
 	. = ..()
 	var/static/list/connections = list(
@@ -176,6 +182,8 @@
 	armor_type = ammo.armor_type
 	proj_max_range = ammo.max_range
 	projectile_speed = ammo.shell_speed
+	proj_alpha = ammo.projectile_alpha
+	proj_size = ammo.initial_size
 
 //Target, firer, shot from. Ie the gun
 /obj/projectile/proc/fire_at(atom/target, mob/living/shooter, atom/source, range, speed, angle, recursivity, suppress_light = FALSE, atom/loc_override = source, scan_loc = FALSE)
@@ -350,6 +358,9 @@
 	if(QDELETED(src))
 		return
 
+	transform *= proj_size
+
+	alpha = proj_alpha
 	if(!suppress_light)
 		if(ammo.bullet_color)
 			set_light_color(ammo.bullet_color)
