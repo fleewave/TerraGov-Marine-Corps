@@ -177,15 +177,15 @@
 	damage = 6
 	burntime = 0.3 SECONDS
 	bonus_projectiles_type = /datum/ammo/flamethrower/spray_flame_bounce
-	bonus_projectiles_amount = 1
+	bonus_projectiles_amount = 0
 	bonus_projectiles_scatter = 2
 	accuracy_var_low = 9
 	accuracy_var_high = 9
 	accurate_range = 3
 	damage = 6
 	damage_falloff = 4
-	projectile_alpha = 0
-	initial_size = 0.5
+	projectile_alpha = 110
+	initial_size = 0.45
 
 /datum/ammo/flamethrower/spray_flame_bounce
 	name = "spray flames"
@@ -196,7 +196,7 @@
 	shell_speed = 0.05
 	damage = 6
 	burntime = 0.3 SECONDS
-	projectile_alpha = 128
+	projectile_alpha = 120
 	initial_size = 1.5
 
 /datum/ammo/flamethrower/spray_flame/on_hit_turf(turf/target_turf, obj/projectile/proj)
@@ -212,7 +212,7 @@
 	reflect(get_turf(target_obj), proj, 180, 2, 0.1)
 
 /datum/ammo/flamethrower/spray_flame/ammo_process(obj/projectile/proj, damage)
-	proj.transform *= 1.15
+	proj.transform *= 1.30
 
 
 /datum/ammo/water/proc/splash(turf/extinguished_turf, splash_direction)
